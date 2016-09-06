@@ -1,0 +1,28 @@
+version: '{build}'
+pull_requests:
+  do_not_increment_build_number: true
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: psP8LxdXdKUP82mpymOBxirJ5DCaIg/pLWHucmPHCSc3KSRa6DBAK4JNSEAqRWOz
+branches:
+  only:
+  - master
+nuget:
+  disable_publish_on_pr: true
+build_script:
+- ps: .\build.ps1
+after_build:
+- ps: .\set-debug-type.ps1
+- ps: .\coverage.ps1
+test: off
+artifacts:
+- path: .\artifacts\**\*.nupkg
+  name: NuGet
+deploy:
+- provider: NuGet
+  name: production
+  api_key:
+    secure: pQePWXr4TPO2/3nd9MGeyNIFqb1Z7dEpFugbJC9VqjGRpoUMQcuHZPiRzi/anZFl
+  on:
+    branch: master
+    appveyor_repo_tag: true
