@@ -1,0 +1,19 @@
+{
+  "name": "Invio.Hashing",
+  "description": "Utilities for generating hashes and hashcodes",
+  "version": "0.1.0",
+  "authors": [ "Brian Caruso <brian@invioinc.com>" ],
+
+  "buildOptions": {
+    "debugType": "portable",
+    "warningsAsErrors": true
+  },
+
+  "dependencies": {
+    "NETStandard.Library": "1.6.0"
+  },
+
+  "frameworks": {
+    "netstandard1.2": {}
+  }
+}
