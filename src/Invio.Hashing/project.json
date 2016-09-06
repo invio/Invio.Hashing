@@ -5,8 +5,20 @@
   "authors": [ "Brian Caruso <brian@invioinc.com>" ],
 
   "buildOptions": {
-    "debugType": "portable",
-    "warningsAsErrors": true
+    "debugType": "portable"
+  },
+
+  "packOptions": {
+    "summary": "Extensions for DependencyInjection in ASP.NET Core",
+    "tags": [ "hashcode", "hashing", "hash" ],
+    "owners": [ "Invio, Incorporated" ],
+    "licenseUrl": "https://github.com/invio/Invio.Hashing/blob/master/LICENSE.txt",
+    "projectUrl": "https://github.com/invio/Invio.Hashing/",
+    "requireLicenseAcceptance": false,
+    "repository": {
+      "type": "git",
+      "url": "git@github.com:invio/Invio.Hashing"
+    }
   },
 
   "dependencies": {
