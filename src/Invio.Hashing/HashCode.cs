@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Invio.HashCode {
+namespace Invio.Hashing {
 
     public static class HashCode {
 
@@ -14,10 +14,18 @@ namespace Invio.HashCode {
         private const int nullPrime = 31;
 
         public static int From(params object[] values) {
+            if (values == null) {
+                throw new ArgumentNullException(nameof(values));
+            }
+
             return HashCode.From((IEnumerable<object>)values);
         }
 
         public static int From(IEnumerable<object> values) {
+            if (values == null) {
+                throw new ArgumentNullException(nameof(values));
+            }
+
             unchecked {
                 var hash = basePrime;
 
