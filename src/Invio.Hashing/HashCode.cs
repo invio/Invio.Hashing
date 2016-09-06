@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Invio.Hashing {
 
@@ -15,21 +16,17 @@ namespace Invio.Hashing {
 
         public static int From(params object[] values) {
             if (values == null) {
-                throw new ArgumentNullException(nameof(values));
+                return HashCode.From(Enumerable.Empty<object>());
             }
 
             return HashCode.From((IEnumerable<object>)values);
         }
 
         public static int From(IEnumerable<object> values) {
-            if (values == null) {
-                throw new ArgumentNullException(nameof(values));
-            }
-
             unchecked {
                 var hash = basePrime;
 
-                foreach (var value in values) {
+                foreach (var value in values ?? Enumerable.Empty<object>()) {
                     hash *= iterationPrime;
 
                     if (value == null) {
