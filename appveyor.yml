@@ -3,7 +3,7 @@ pull_requests:
   do_not_increment_build_number: true
 environment:
   COVERALLS_REPO_TOKEN:
-    secure: psP8LxdXdKUP82mpymOBxirJ5DCaIg/pLWHucmPHCSc3KSRa6DBAK4JNSEAqRWOz
+    secure: nPyaa/uoZsKIhRvNN2XoDUJwz7q7IJxHjNwBrP76/GjveQ30utgaCHDJSBEXidW2
 branches:
   only:
   - master
@@ -22,7 +22,7 @@ deploy:
 - provider: NuGet
   name: production
   api_key:
-    secure: pQePWXr4TPO2/3nd9MGeyNIFqb1Z7dEpFugbJC9VqjGRpoUMQcuHZPiRzi/anZFl
+    secure: PhzvKEzboYRGqGP1b9vHQIYr7yma8Aoadz8X7Fh3K+3/AbSu20BCeK3wvvgdQ0Co
   on:
     branch: master
     appveyor_repo_tag: true
