@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -61,13 +62,13 @@ namespace Invio.Hashing {
         ///   <para>
         ///     The output can change if the objects in the
         ///     <paramref name="values" /> array are provided in a different
-        ///     order, or if the objects in <paramref name="values" />
-        ///     change state in such a way that alters their hash code.
+        ///     order, or if any object in <paramref name="values" />
+        ///     changes state in such a way that it alters its hash code.
         ///     This is because each non-null object will have its hash code
         ///     incorporated into the output.
         ///   </para>
         ///   <para>
-        ///     The 'null' value is acceptable both as a value within the
+        ///     A 'null' value is acceptable both as an item within the
         ///     <paramref name="values" /> enumeration and as the value of
         ///     the <paramref name="values" /> enumeration itself.
         ///   </para>
@@ -91,6 +92,108 @@ namespace Invio.Hashing {
                         hash += nullPrime;
                     } else {
                         hash += value.GetHashCode();
+                    }
+                }
+
+                return hash;
+            }
+        }
+
+        /// <summary>
+        ///   Generates a consistent, deterministic hash code for an
+        ///   enumeration of objects where the order of the values in
+        ///   the enumeration matters in terms of equality.
+        /// </summary>
+        /// <remarks>
+        ///   <para>
+        ///     The output can change if the objects in the <paramref name="values" />
+        ///     enumerable are provided in a different order, or if any object in
+        ///     <paramref name="values" /> changes state in such a way that it alters
+        ///     its hash code. This is because each non-null object will have its own
+        ///     hash code incorporated into the output.
+        ///   </para>
+        ///   <para>
+        ///     A 'null' value is acceptable both as an item within the
+        ///     <paramref name="values" /> enumeration and as the value of
+        ///     the <paramref name="values" /> enumeration itself.
+        ///   </para>
+        /// </remarks>
+        /// <param name="values">
+        ///   An enumeration of objects that will be used to generate a
+        ///   consistent hash code where the order of items in said enumeration
+        ///   is relevant when determining its equality to another
+        ///   enumeration of values.
+        /// </param>
+        /// <returns>
+        ///   A consistent, deterministic hash code for input provided
+        ///   via <paramref name="values" />.
+        /// </returns>
+        public static int FromList(IEnumerable values) {
+            if (values == null) {
+                return basePrime;
+            }
+
+            unchecked {
+                var hash = basePrime;
+                var index = 0;
+
+                foreach (var value in values) {
+                    hash *= iterationPrime;
+
+                    if (value == null) {
+                        hash += nullPrime;
+                    } else {
+                        hash += value.GetHashCode();
+                    }
+
+                    hash += (++index);
+                }
+
+                return hash;
+            }
+        }
+
+        /// <summary>
+        ///   Generates a consistent, deterministic hash code for an
+        ///   enumeration of objects where the order of the values in
+        ///   the enumeration does not matter in terms of equality.
+        /// </summary>
+        /// <remarks>
+        ///   <para>
+        ///     The output can change if any object in <paramref name="values" />
+        ///     changes state in such a way that it alters its hash code.
+        ///     This is because each non-null object will have its own
+        ///     hash code incorporated into the output.
+        ///   </para>
+        ///   <para>
+        ///     A 'null' value is acceptable both as an item within the
+        ///     <paramref name="values" /> enumeration and as the value of
+        ///     the <paramref name="values" /> enumeration itself.
+        ///   </para>
+        /// </remarks>
+        /// <param name="values">
+        ///   An enumeration of objects that will be used to generate a
+        ///   consistent hash code where the order of items in said enumeration
+        ///   is irrelevant when determining its equality to another
+        ///   enumeration of values.
+        /// </param>
+        /// <returns>
+        ///   A consistent, deterministic hash code for input provided
+        ///   via <paramref name="values" />.
+        /// </returns>
+        public static int FromSet(IEnumerable values) {
+            if (values == null) {
+                return basePrime;
+            }
+
+            unchecked {
+                var hash = basePrime;
+
+                foreach (var value in values) {
+                    if (value == null) {
+                        hash ^= nullPrime;
+                    } else {
+                        hash ^= value.GetHashCode();
                     }
                 }
 
