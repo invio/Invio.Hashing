@@ -1,12 +1,12 @@
 {
-  "version": "1.0.0",
+  "name": "Invio.Hashing.Tests",
 
   "buildOptions": {
     "debugType": "portable"
   },
 
   "dependencies": {
-    "Invio.Hashing": { "version": "1.0.0", "target": "project" },
+    "Invio.Hashing": { "target": "project" },
     "dotnet-test-xunit": "2.2.0-*",
     "xunit": "2.2.0-*"
   },
