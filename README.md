@@ -85,7 +85,6 @@ namespace MyNamespace {
 
         public override int GetHashCode() {
             return HashCode.From(
-                this.MyProperty,
                 HashCode.FromList(this.Tasks),
                 HashCode.FromSet(this.Tools)
             );
