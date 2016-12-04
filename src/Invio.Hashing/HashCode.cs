@@ -132,6 +132,38 @@ namespace Invio.Hashing {
             return HashCode.FromList(values, EqualityComparer<Object>.Default);
         }
 
+        /// <summary>
+        ///   Generates a consistent, deterministic hash code for an
+        ///   enumeration of objects where the order of the values in
+        ///   the enumeration matters in terms of equality.
+        /// </summary>
+        /// <remarks>
+        ///   <para>
+        ///     The output can change if any objects in the <paramref name="values" />
+        ///     enumerable are provided in a different order, or if any object changes
+        ///     state in such a way that it alters the way the <paramref name="comparer" />
+        ///     provided calculates its hash code.
+        ///   </para>
+        ///   <para>
+        ///     A 'null' value is acceptable both as an item within the
+        ///     <paramref name="values" /> enumeration and as the value of
+        ///     the <paramref name="values" /> enumeration itself.
+        ///   </para>
+        /// </remarks>
+        /// <param name="values">
+        ///   An enumeration of objects that will be used to generate a
+        ///   consistent hash code where the order of items in said enumeration
+        ///   is relevant when determining its equality to another
+        ///   enumeration of values.
+        /// </param>
+        /// <param name="comparer">
+        ///   An <see cref="IEqualityComparer" /> implementation used to
+        ///   generate all non-null hash codes for objects in <paramref name="values" />.
+        /// </param>
+        /// <returns>
+        ///   A consistent, deterministic hash code for the input provided
+        ///   via <paramref name="values" /> and <paramref name="comparer" />.
+        /// </returns>
         public static int FromList(IEnumerable values, IEqualityComparer comparer) {
             if (comparer == null) {
                 throw new ArgumentNullException(nameof(values));
@@ -193,6 +225,38 @@ namespace Invio.Hashing {
             return HashCode.FromSet(values, EqualityComparer<Object>.Default);
         }
 
+        /// <summary>
+        ///   Generates a consistent, deterministic hash code for an
+        ///   enumeration of objects where the order of the values in
+        ///   the enumeration does not matter in terms of equality.
+        /// </summary>
+        /// <remarks>
+        ///   <para>
+        ///     The output can change if any object in <paramref name="values" />
+        ///     changes state in such a way that it alters the way
+        ///     the <paramref name="comparer" /> provided calculates
+        ///     its hash code.
+        ///   </para>
+        ///   <para>
+        ///     A 'null' value is acceptable both as an item within the
+        ///     <paramref name="values" /> enumeration and as the value of
+        ///     the <paramref name="values" /> enumeration itself.
+        ///   </para>
+        /// </remarks>
+        /// <param name="values">
+        ///   An enumeration of objects that will be used to generate a
+        ///   consistent hash code where the order of items in said enumeration
+        ///   is irrelevant when determining its equality to another
+        ///   enumeration of values.
+        /// </param>
+        /// <param name="comparer">
+        ///   An <see cref="IEqualityComparer" /> implementation used to
+        ///   generate all non-null hash codes for objects in <paramref name="values" />.
+        /// </param>
+        /// <returns>
+        ///   A consistent, deterministic hash code for the input provided
+        ///   via <paramref name="values" /> and <paramref name="comparer" />.
+        /// </returns>
         public static int FromSet(IEnumerable values, IEqualityComparer comparer) {
             if (comparer == null) {
                 throw new ArgumentNullException(nameof(comparer));
