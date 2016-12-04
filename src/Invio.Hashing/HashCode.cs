@@ -129,6 +129,14 @@ namespace Invio.Hashing {
         ///   via <paramref name="values" />.
         /// </returns>
         public static int FromList(IEnumerable values) {
+            return HashCode.FromList(values, EqualityComparer<Object>.Default);
+        }
+
+        public static int FromList(IEnumerable values, IEqualityComparer comparer) {
+            if (comparer == null) {
+                throw new ArgumentNullException(nameof(values));
+            }
+
             if (values == null) {
                 return basePrime;
             }
@@ -143,7 +151,7 @@ namespace Invio.Hashing {
                     if (value == null) {
                         hash += nullPrime;
                     } else {
-                        hash += value.GetHashCode();
+                        hash += comparer.GetHashCode(value);
                     }
 
                     hash += (++index);
@@ -182,6 +190,14 @@ namespace Invio.Hashing {
         ///   via <paramref name="values" />.
         /// </returns>
         public static int FromSet(IEnumerable values) {
+            return HashCode.FromSet(values, EqualityComparer<Object>.Default);
+        }
+
+        public static int FromSet(IEnumerable values, IEqualityComparer comparer) {
+            if (comparer == null) {
+                throw new ArgumentNullException(nameof(comparer));
+            }
+
             if (values == null) {
                 return basePrime;
             }
@@ -193,7 +209,7 @@ namespace Invio.Hashing {
                     if (value == null) {
                         hash ^= nullPrime;
                     } else {
-                        hash ^= value.GetHashCode();
+                        hash ^= comparer.GetHashCode(value);
                     }
                 }
 
