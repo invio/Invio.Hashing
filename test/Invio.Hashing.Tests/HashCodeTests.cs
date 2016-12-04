@@ -124,7 +124,8 @@ namespace Invio.Hashing {
 
             Assert.False(
                 leftHashCode.Equals(rightHashCode),
-                "Since the left list has an extra item in its list, it should not be considered equal."
+                "Since the left list has an extra item in its list, " +
+                "it should not be considered equal."
             );
         }
 
@@ -132,6 +133,62 @@ namespace Invio.Hashing {
         [MemberData(nameof(Consistency_Data))]
         public void FromList_Consistency(IEnumerable left, IEnumerable right) {
             Assert.Equal(HashCode.FromList(left), HashCode.FromList(right));
+        }
+
+        [Fact]
+        public void FromList_WithComparer_NullComparer() {
+
+            // Arrange
+
+            var values = new List<String> { "Foo", "Bar" };
+
+            // Act
+
+            var exception = Record.Exception(
+                () => HashCode.FromList(values, null)
+            );
+
+            // Assert
+
+            Assert.IsType<ArgumentNullException>(exception);
+        }
+
+        public static IEnumerable<object[]> FromList_WithCustomComparer_Data {
+            get {
+                var dateTime = DateTime.UtcNow;
+
+                return new List<object[]> {
+                    new object[] {
+                        new List<String> { "Foo", "bar", "BIZZ" },
+                        new List<String> { "Foo", "bar", "BIZZ" },
+                    },
+                    new object[] {
+                        new List<String> { null, "Foo" },
+                        new List<String> { null, "Foo" }
+                    },
+                    new object[] {
+                        new List<Object> { dateTime, null, 5, "foo" },
+                        new List<Object> { dateTime, null, 5, "foo" }
+                    }
+                };
+            }
+        }
+
+        [Theory]
+        [MemberData(nameof(FromList_WithCustomComparer_Data))]
+        public void FromList_WithCustomComparer_Matches(IEnumerable left, IEnumerable right) {
+
+            // Act
+
+            var leftHashCode = HashCode.FromList(left, StringComparer.OrdinalIgnoreCase);
+            var rightHashCode = HashCode.FromList(right, StringComparer.OrdinalIgnoreCase);
+
+            // Assert
+
+            Assert.True(
+                leftHashCode.Equals(rightHashCode),
+                "Case should matter for this hash code generation."
+            );
         }
 
         [Fact]
@@ -197,7 +254,8 @@ namespace Invio.Hashing {
 
             Assert.False(
                 leftHashCode.Equals(rightHashCode),
-                "Since the left set has an extra item in its list, it should not be considered equal."
+                "Since the left set has an extra item in its list, " +
+                "it should not be considered equal."
             );
         }
 
@@ -205,6 +263,62 @@ namespace Invio.Hashing {
         [MemberData(nameof(Consistency_Data))]
         public void FromSet_Consistency(IEnumerable left, IEnumerable right) {
             Assert.Equal(HashCode.FromSet(left), HashCode.FromSet(right));
+        }
+
+        [Fact]
+        public void FromSet_WithComparer_NullComparer() {
+
+            // Arrange
+
+            var values = new List<String> { "Foo", "Bar" };
+
+            // Act
+
+            var exception = Record.Exception(
+                () => HashCode.FromSet(values, null)
+            );
+
+            // Assert
+
+            Assert.IsType<ArgumentNullException>(exception);
+        }
+
+        public static IEnumerable<object[]> FromSet_WithCustomComparer_Data {
+            get {
+                var dateTime = DateTime.UtcNow;
+
+                return new List<object[]> {
+                    new object[] {
+                        new List<String> { "Foo", "bar", "BIZZ" },
+                        new List<String> { "BAR", "bizz", "fOO" }
+                    },
+                    new object[] {
+                        new List<String> { "Foo", null },
+                        new List<String> { null, "Foo" }
+                    },
+                    new object[] {
+                        new List<Object> { "Foo", null, 5, dateTime },
+                        new List<Object> { dateTime, null, 5, "foo" }
+                    }
+                };
+            }
+        }
+
+        [Theory]
+        [MemberData(nameof(FromSet_WithCustomComparer_Data))]
+        public void FromSet_WithCustomComparer_Matches(IEnumerable left, IEnumerable right) {
+
+            // Act
+
+            var leftHashCode = HashCode.FromSet(left, StringComparer.OrdinalIgnoreCase);
+            var rightHashCode = HashCode.FromSet(right, StringComparer.OrdinalIgnoreCase);
+
+            // Assert
+
+            Assert.True(
+                leftHashCode.Equals(rightHashCode),
+                "Neither case nor order should matter for this hash code generation."
+            );
         }
 
         private static object[] ToArray(object value) {
