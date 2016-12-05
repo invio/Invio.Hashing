@@ -45,6 +45,24 @@ namespace Invio.Hashing {
         }
 
         [Theory]
+        [MemberData(nameof(NonStrings))]
+        public void CurrentCulture_GetHashCode_SameForNonStrings(Object value) {
+
+            // Arrange
+
+            var comparer = IfStringComparer.CurrentCulture;
+
+            // Act
+
+            var comparerHashCode = comparer.GetHashCode(value);
+            var defaultHashCode = value.GetHashCode();
+
+            // Assert
+
+            Assert.Equal(comparerHashCode, defaultHashCode);
+        }
+
+        [Theory]
         [MemberData(nameof(NeverEqual_Data))]
         public void CurrentCultureIgnoreCase_NotEqual(Object left, Object right) {
 
@@ -80,6 +98,24 @@ namespace Invio.Hashing {
 
             Assert.True(isEqual);
             Assert.Equal(leftHashCode, rightHashCode);
+        }
+
+        [Theory]
+        [MemberData(nameof(NonStrings))]
+        public void CurrentCultureIgnoreCase_GetHashCode_SameForNonStrings(Object value) {
+
+            // Arrange
+
+            var comparer = IfStringComparer.CurrentCultureIgnoreCase;
+
+            // Act
+
+            var comparerHashCode = comparer.GetHashCode(value);
+            var defaultHashCode = value.GetHashCode();
+
+            // Assert
+
+            Assert.Equal(comparerHashCode, defaultHashCode);
         }
 
         [Theory]
@@ -121,6 +157,24 @@ namespace Invio.Hashing {
         }
 
         [Theory]
+        [MemberData(nameof(NonStrings))]
+        public void Ordinal_GetHashCode_SameForNonStrings(Object value) {
+
+            // Arrange
+
+            var comparer = IfStringComparer.Ordinal;
+
+            // Act
+
+            var comparerHashCode = comparer.GetHashCode(value);
+            var defaultHashCode = value.GetHashCode();
+
+            // Assert
+
+            Assert.Equal(comparerHashCode, defaultHashCode);
+        }
+
+        [Theory]
         [MemberData(nameof(NeverEqual_Data))]
         public void OrdinalIgnoreCase_NotEqual(Object left, Object right) {
 
@@ -158,6 +212,24 @@ namespace Invio.Hashing {
             Assert.Equal(leftHashCode, rightHashCode);
         }
 
+        [Theory]
+        [MemberData(nameof(NonStrings))]
+        public void OrdinalIgnoreCase_GetHashCode_SameForNonStrings(Object value) {
+
+            // Arrange
+
+            var comparer = IfStringComparer.OrdinalIgnoreCase;
+
+            // Act
+
+            var comparerHashCode = comparer.GetHashCode(value);
+            var defaultHashCode = value.GetHashCode();
+
+            // Assert
+
+            Assert.Equal(comparerHashCode, defaultHashCode);
+        }
+
         public static IEnumerable<object[]> AlwaysEqual_Data {
             get {
                 return new List<object[]> {
@@ -186,6 +258,17 @@ namespace Invio.Hashing {
                 return new List<object[]> {
                     new object[] { "Foo", "FOO" },
                     new object[] { "BaR", "bar" }
+                };
+            }
+        }
+
+        public static IEnumerable<object[]> NonStrings {
+            get {
+                return new List<object[]> {
+                    new object[] { 5 },
+                    new object[] { 1.5m },
+                    new object[] { DateTime.UtcNow },
+                    new object[] { new object() }
                 };
             }
         }
