@@ -1,12 +1,12 @@
 language: csharp
 sudo: required
-dotnet: 1.0.0-preview3-004056
+dotnet: 1.0.0-preview2-1-003177
 
 matrix:
   include:
-    - os: linux # Ubuntu 14.04
-      dist: trusty
-      mono: latest
+#    - os: linux # Ubuntu 14.04
+#      dist: trusty
+#      mono: latest
 #    - os: osx # OSX 10.11
 #      osx_image: xcode7.2
 #      mono: latest
@@ -18,7 +18,4 @@ branches:
 before_script:
   - chmod a+x ./build.sh
 script:
-  - dotnet test ./test/Invio.Hashing.Tests/project.json -c Release -f netcoreapp1.0
-  - dotnet build ./test/Invio.Hashing.Tests/project.json -c Release -f net451
-  - mono ./test/Invio.Hashing.Tests/bin/Release/net451/*/dotnet-test-xunit.exe ./test/Invio.Hashing.Tests/bin/Release/net451/*/Invio.Hashing.Tests.dll
-  - dotnet pack ./src/Invio.Hashing/json -c Release -o ./artifacts
+  - ./build.sh
