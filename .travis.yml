@@ -1,9 +1,9 @@
 language: csharp
 sudo: required
-dotnet: 1.0.0-preview2-1-003177
+# dotnet: 1.0.0-preview2-1-003177
 
-matrix:
-  include:
+#matrix:
+#  include:
 #    - os: linux # Ubuntu 14.04
 #      dist: trusty
 #      mono: latest
