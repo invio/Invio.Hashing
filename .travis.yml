@@ -18,7 +18,7 @@ branches:
 before_script:
   - chmod a+x ./build.sh
 script:
-  - dotnet test ./test/Invio.Hashing.Tests -c Release -f netcoreapp1.0
-  - dotnet build ./test/Invio.Hashing.Tests -c Release -f net451
+  - dotnet test ./test/Invio.Hashing.Tests/project.json -c Release -f netcoreapp1.0
+  - dotnet build ./test/Invio.Hashing.Tests/project.json -c Release -f net451
   - mono ./test/Invio.Hashing.Tests/bin/Release/net451/*/dotnet-test-xunit.exe ./test/Invio.Hashing.Tests/bin/Release/net451/*/Invio.Hashing.Tests.dll
-  - dotnet pack ./src/Invio.Hashing -c Release -o ./artifacts
+  - dotnet pack ./src/Invio.Hashing/json -c Release -o ./artifacts
