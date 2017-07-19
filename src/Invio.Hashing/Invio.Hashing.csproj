@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Utilities for generating hashes and hashcodes</Description>
+    <VersionPrefix>1.3.1</VersionPrefix>
+    <Authors>Brian Caruso &lt;brian@invioinc.com&gt;</Authors>
+    <TargetFramework>netstandard1.2</TargetFramework>
+    <DebugType>full</DebugType>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyName>Invio.Hashing</AssemblyName>
+    <PackageId>Invio.Hashing</PackageId>
+    <PackageTags>hashcode;hashing;hash</PackageTags>
+    <PackageProjectUrl>https://github.com/invio/Invio.Hashing/</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/invio/Invio.Hashing/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>git@github.com:invio/Invio.Hashing</RepositoryUrl>
+    <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
+  </PropertyGroup>
+
+</Project>
