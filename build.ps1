@@ -52,15 +52,12 @@ if(Test-Path .\artifacts) { Remove-Item .\artifacts -Force -Recurse }
 
 EnsurePsbuildInstalled
 
-exec { & dotnet restore .\src\Invio.Hashing }
-exec { & dotnet restore .\test\Invio.Hashing.Tests }
-
-exec { & dotnet build .\src\Invio.Hashing }
-exec { & dotnet build .\test\Invio.Hashing.Tests }
+exec { & dotnet restore }
+exec { & dotnet build }
 
 $revision = @{ $true = $env:APPVEYOR_BUILD_NUMBER; $false = 1 }[$env:APPVEYOR_BUILD_NUMBER -ne $NULL];
 $revision = "{0:D4}" -f [convert]::ToInt32($revision, 10)
 
 exec { & dotnet test .\test\Invio.Hashing.Tests\Invio.Hashing.Tests.csproj -c Release }
 
-exec { & dotnet pack .\src\Invio.Hashing -c Release -o ..\..\artifacts }
+exec { & dotnet pack -c Release -o ..\..\artifacts }
