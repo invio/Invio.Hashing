@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Invio.Xunit;
 using Xunit;
 
 namespace Invio.Hashing {
 
-    public class IfStringComparerTests {
+    [UnitTest]
+    public sealed class IfStringComparerTests {
 
         [Theory]
         [MemberData(nameof(NeverEqual_Data))]

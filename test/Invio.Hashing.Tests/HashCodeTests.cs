@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Invio.Xunit;
 using Xunit;
 
 namespace Invio.Hashing {
 
-    public class HashCodeTests {
+    [UnitTest]
+    public sealed class HashCodeTests {
 
         public static IEnumerable<object[]> Consistency_Data {
             get {
