@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <Description>Utilities for generating hashes and hashcodes</Description>
-    <VersionPrefix>2.0.0</VersionPrefix>
+    <VersionPrefix>0.1.3</VersionPrefix>
     <Authors>Invio Inc &lt;developers@invioinc.com&gt;</Authors>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard1.0</TargetFramework>
     <DebugType>portable</DebugType>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Invio.Hashing</AssemblyName>
